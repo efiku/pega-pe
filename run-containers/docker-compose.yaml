@@ -1,12 +1,18 @@
 version: '3.7'
 
 services:
-  pega-pe-frontend:
-    container_name: pega-pe-frontend
+  backend:
+    image: image_pega-pe-backend:latest
     restart: unless-stopped
-    build:
-      dockerfile: Dockerfile
-      context: ./pega-pe-frontend
+    expose:
+      - "5432"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      
+  frontend:
+    image: image_pega-pe-frontend:latest
     depends_on:
       - pega-pe-backend
     environment:
@@ -18,16 +24,3 @@ services:
       - JDBC_CLASS=org.postgresql.Driver
     ports:
       - "8080"
-
-  pega-pe-backend:
-    container_name: pega-pe-backend
-    restart: unless-stopped
-    build:
-      dockerfile: Dockerfile
-      context: ./pega-pe-backend
-    expose:
-      - "5432"
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
