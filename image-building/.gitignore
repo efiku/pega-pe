@@ -1,4 +1,3 @@
 pega-pe-backend/dump/pega.dump
 pega-pe-frontend/pega-war/prweb.war
-export/
-!export/.gitkeep
+export/*.gz

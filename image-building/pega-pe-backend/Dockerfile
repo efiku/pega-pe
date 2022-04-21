@@ -1,5 +1,4 @@
 FROM postgres:14.2
-
 RUN apt update && \
     apt -y --fix-missing --no-install-recommends install \
     git \
